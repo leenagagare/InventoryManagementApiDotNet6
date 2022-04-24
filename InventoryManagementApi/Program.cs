@@ -15,9 +15,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-var inventoryRepository = new ProductRepository();
-builder.Services.Add(new ServiceDescriptor(typeof(IRepository), inventoryRepository));
-builder.Services.Add(new ServiceDescriptor(typeof(IProductService), new ProductService(inventoryRepository)));
+builder.Services.AddScoped<IRepository,ProductRepository>();
+builder.Services.AddScoped<IProductService,ProductService>();
 builder.Services.AddCors(options => options.AddPolicy("ApiCorsPolicy", builder =>
 {
     builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
